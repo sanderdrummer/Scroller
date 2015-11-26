@@ -19,18 +19,11 @@
 
         function toggleNavOnScroll(currentPosition){
             if(lastPosition < currentPosition){
-                nav.classList.add("hideNav");
+                nav.style.marginTop = "-250px";
             } else {
-                nav.classList.remove("hideNav");
+                nav.style.marginTop = "-0px";
             }
         }
-
-
-
-        function hasClass(elem, cls){
-            return elem.className.indexOf(" " + cls + " ") !== -1;
-        }
-
 
 
         function isInViewport ( elem ) {
@@ -49,7 +42,7 @@
                 while(i--){
                     if(isInViewport(elems[i])){
                         elems[i].classList.add("reveal");
-                        if(hasClass(elems[i], "last") && elems.length === d.getElementsByClassName("reveal").length){
+                        if((elems[i].classList.contains("last")) && elems.length === d.getElementsByClassName("reveal").length){
                             stop = true;
                         }
                     }
@@ -74,7 +67,14 @@
                 scroll(loop);
             }
         }
-
+        function setNavStyle(elem) {
+            elem.style.width = '100%';
+            elem.style.top = '0';
+            elem.style.left = '0';
+            elem.style.position = 'fixed';
+            elem.style.zIndex = '100';
+            
+        }
 
 
         self.start = function(config){
@@ -82,8 +82,8 @@
             config = config || {};
             
             nav = config.nav || d.getElementById("nav");
+            setNavStyle(nav);
             opaqueElems = config.opaqueElems || d.getElementsByClassName("opaque");
-            console.log(nav, opaqueElems);
             loop();
         };
 
