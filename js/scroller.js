@@ -1,13 +1,13 @@
 
 (function(d, w){
-        "use strict";
+        'use strict';
 
         var self = {};
 
         // elements
         var nav;
         var opaqueElems;
-
+        var navHeight;
         // helper vars
         var lastPosition = w.pageYOffset;
         var stop = false;
@@ -19,9 +19,9 @@
 
         function toggleNavOnScroll(currentPosition){
             if(lastPosition < currentPosition){
-                nav.style.marginTop = "-250px";
+                nav.style.marginTop = '-' + (2*navHeight) + 'px';
             } else {
-                nav.style.marginTop = "-0px";
+                nav.style.marginTop = '-0px';
             }
         }
 
@@ -40,9 +40,10 @@
             var i = elems.length;
             if(!stop){
                 while(i--){
+                    console.log(isInViewport(elems[i]));
                     if(isInViewport(elems[i])){
-                        elems[i].classList.add("reveal");
-                        if((elems[i].classList.contains("last")) && elems.length === d.getElementsByClassName("reveal").length){
+                        elems[i].classList.add('reveal');
+                        if((elems[i].classList.contains('last')) && elems.length === d.getElementsByClassName('reveal').length){
                             stop = true;
                         }
                     }
@@ -66,7 +67,9 @@
 
                 scroll(loop);
             }
+            
         }
+        
         function setNavStyle(elem) {
             elem.style.width = '100%';
             elem.style.top = '0';
@@ -81,9 +84,11 @@
             
             config = config || {};
             
-            nav = config.nav || d.getElementById("nav");
+            nav = config.nav || d.getElementById('nav');
             setNavStyle(nav);
-            opaqueElems = config.opaqueElems || d.getElementsByClassName("opaque");
+            navHeight = parseInt(getComputedStyle(nav).height);
+            //nav.nextElementSibling.style.marginTop = navHeight + 'px';
+            opaqueElems = config.opaqueElems || d.getElementsByClassName('opaque');
             loop();
         };
 
