@@ -28,6 +28,7 @@
 
         function isInViewport ( elem ) {
             var distance = elem.getBoundingClientRect();
+            console.log(distance, w.innerHeight);
             return (
                 distance.top >= 0 &&
                 distance.bottom <= (w.innerHeight || d.documentElement.clientHeight)
@@ -42,8 +43,10 @@
                 while(i--){
                     console.log(isInViewport(elems[i]));
                     if(isInViewport(elems[i])){
+                        elems[i].classList.add('animated');
+                        elems[i].classList.add('bounceInLeft');
                         elems[i].classList.add('reveal');
-                        if((elems[i].classList.contains('last')) && elems.length === d.getElementsByClassName('reveal').length){
+                        if((elems[i].classList.contains('last')) && elems.length === d.getElementsByClassName('animated').length){
                             stop = true;
                         }
                     }
@@ -67,23 +70,23 @@
 
                 scroll(loop);
             }
-            
+
         }
-        
+
         function setNavStyle(elem) {
             elem.style.width = '100%';
             elem.style.top = '0';
             elem.style.left = '0';
             elem.style.position = 'fixed';
             elem.style.zIndex = '100';
-            
+
         }
 
 
         self.start = function(config){
-            
+
             config = config || {};
-            
+
             nav = config.nav || d.getElementById('nav');
             setNavStyle(nav);
             navHeight = parseInt(getComputedStyle(nav).height);
