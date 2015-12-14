@@ -13,3 +13,14 @@
 .reveal{
     opacity: 1;
 }
+
+#nav{
+    padding: 20px;
+    background: grey;
+    box-shadow: 1px 1px 3px black;
+    
+}
+
+#nav ul li{
+    float:left;
+}
